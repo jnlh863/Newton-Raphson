@@ -134,7 +134,7 @@ public class NewtonRaphson extends JFrame {
 						f1.setFuncion(expresion);
 						f1.setPuntoInicial(valor);
 						f1.setError(margen);
-						r.llenarTablaF1(f1.newtonRaphson());
+						r.llenarTablaF1(f1.newtonRaphson(),f1.getFuncion());
 					}
 					
 					if(nr2.isSelected()) {
@@ -142,7 +142,7 @@ public class NewtonRaphson extends JFrame {
 						f2.setFuncion(expresion);
 						f2.setPuntoInicial(valor);
 						f2.setError(margen);
-						r.llenarTablaF2(f2.newtonraphsonMejorado());
+						r.llenarTablaF2(f2.newtonraphsonMejorado(), f2.getFuncion());
 					}
 					
 					if(funcion.getText().isEmpty()) {

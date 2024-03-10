@@ -73,7 +73,7 @@ public class Resultados extends JFrame {
 		scrollPane.setViewportView(tableu);
 	}
 	
-	public void llenarTablaF1(ArrayList<Double> j) {
+	public void llenarTablaF1(ArrayList<Double> j, String funcion) {
 		ArrayList<Double> raices = new ArrayList<Double>();
 		ArrayList<Double> errores = new ArrayList<Double>();
 		ArrayList<Integer> iteraciones = new ArrayList<Integer>();
@@ -107,6 +107,8 @@ public class Resultados extends JFrame {
             model.addRow(row);
         }
 		
+        Grafica g = new Grafica();
+		g.graficar(raices, funcion);
 		
 		System.out.println(iteraciones);
 		System.out.println(raices);
@@ -114,10 +116,11 @@ public class Resultados extends JFrame {
 	}
 	
 	
-	public void llenarTablaF2(ArrayList<Double> j) {
+	public void llenarTablaF2(ArrayList<Double> j, String funcion) {
 		ArrayList<Double> raices = new ArrayList<Double>();
 		ArrayList<Double> errores = new ArrayList<Double>();
 		ArrayList<Integer> iteraciones = new ArrayList<Integer>();
+		
 		
 		for(int i = 0; i< j.size(); i++) {
 			if(i != ((j.size()/2))) {
@@ -148,6 +151,8 @@ public class Resultados extends JFrame {
             model.addRow(row);
         }
 		
+		Grafica g = new Grafica();
+		g.graficar(raices, funcion);
 		
 		System.out.println(iteraciones);
 		System.out.println(raices);
