@@ -122,7 +122,7 @@ public class NewtonRaphson extends JFrame {
 					String expresion = funcion.getText();
 					double valor = Double.parseDouble(puntoInicial.getText());
 					double margen = Double.parseDouble(error.getText());
-					
+					Resultados r = new Resultados();
 
 					if (!nr1.isSelected() && !nr2.isSelected()) {
 						errores.setText("Debe seleccionar una opción.");
@@ -134,15 +134,15 @@ public class NewtonRaphson extends JFrame {
 						f1.setFuncion(expresion);
 						f1.setPuntoInicial(valor);
 						f1.setError(margen);
-						System.out.println(f1.iteracionesraiz());
+						r.llenarTablaF1(f1.newtonRaphson());
 					}
 					
 					if(nr2.isSelected()) {
 						nr2 f2 = new nr2();
 						f2.setFuncion(expresion);
-						//f2.setPuntoInicial(valor);
+						f2.setPuntoInicial(valor);
 						f2.setError(margen);
-						
+						r.llenarTablaF2(f2.newtonraphsonMejorado());
 					}
 					
 					if(funcion.getText().isEmpty()) {
@@ -150,7 +150,6 @@ public class NewtonRaphson extends JFrame {
 						errores.setText("");
 						btnNewButton.setEnabled(false);
 					}else{
-						Resultados r = new Resultados();
 						r.setVisible(true);
 						r.setTitle("Newton-Raphson");
 						r.setLocationRelativeTo(null);
