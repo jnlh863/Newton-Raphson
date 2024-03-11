@@ -1,19 +1,13 @@
 package newtonraphson;
 
 import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.lsmp.djep.djep.DJep;
-import java.lang.Math;
-import java.util.ArrayList;
-import org.nfunk.jep.Node;
 import org.nfunk.jep.JEP;
 
 
@@ -21,6 +15,7 @@ public class Grafica {
 	
 	public Grafica() {
 	}
+	
 	JEP jep;
 
 	public void graficar(ArrayList<Double> g, String funcion) {
@@ -43,16 +38,14 @@ public class Grafica {
 		
 		JFreeChart chart = ChartFactory.createXYLineChart("Newton-Raphson", "x", "y", dataset, PlotOrientation.VERTICAL,
 				true, false, false);
-		
-		
+
 		ChartFrame frame = new ChartFrame("Newton-Raphson", chart);
 		
 		frame.pack();
 		frame.setSize(800,460);
-		frame.setLocation(50,100);
-		ImageIcon icono = new ImageIcon("logo.png");
+		frame.setLocation(30,130);
+		ImageIcon icono = new ImageIcon("Icono/logo.png");
 		frame.setIconImage(icono.getImage());
 		frame.setVisible(true);
 	}
-
 }

@@ -16,8 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.util.regex.*;
 
 public class NewtonRaphson extends JFrame {
 
@@ -37,11 +36,11 @@ public class NewtonRaphson extends JFrame {
 					NewtonRaphson frame = new NewtonRaphson();
 					frame.setTitle("Newton-Raphson");
 					frame.setVisible(true);
-					frame.setSize(800,460);
+					frame.setSize(800,430);
 					frame.setLocationRelativeTo(null);
 					frame.setResizable(false);
 					
-					ImageIcon icono = new ImageIcon("logo.png");
+					ImageIcon icono = new ImageIcon("Icono/logo.png");
 					frame.setIconImage(icono.getImage());
 					
 				} catch (Exception e) {
@@ -69,9 +68,9 @@ public class NewtonRaphson extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel menu = new JLabel("Newton-Raphson");
-		menu.setFont(new Font("Cambria Math", Font.BOLD, 20));
+		menu.setFont(new Font("Constantia", Font.BOLD, 25));
 		menu.setHorizontalAlignment(SwingConstants.CENTER);
-		menu.setBounds(313, 46, 181, 40);
+		menu.setBounds(289, 46, 205, 40);
 		contentPane.add(menu);
 		
 		JLabel lblNewLabel = new JLabel("Elige una opción");
@@ -102,7 +101,7 @@ public class NewtonRaphson extends JFrame {
 		errores.setForeground(new Color(255, 0, 0));
 		errores.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		errores.setHorizontalAlignment(SwingConstants.CENTER);
-		errores.setBounds(327, 235, 410, 14);
+		errores.setBounds(327, 235, 410, 21);
 		contentPane.add(errores);
 		
 		
@@ -110,13 +109,14 @@ public class NewtonRaphson extends JFrame {
 		errorgeneral.setForeground(new Color(255, 0, 0));
 		errorgeneral.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		errorgeneral.setHorizontalAlignment(SwingConstants.CENTER);
-		errorgeneral.setBounds(165, 275, 500, 14);
+		errorgeneral.setBounds(165, 267, 500, 22);
 		contentPane.add(errorgeneral);
 		
 		
 		JButton btnNewButton = new JButton("Aceptar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				try {
 					
 					String expresion = funcion.getText();
@@ -124,43 +124,56 @@ public class NewtonRaphson extends JFrame {
 					double margen = Double.parseDouble(error.getText());
 					Resultados r = new Resultados();
 
-					if (!nr1.isSelected() && !nr2.isSelected()) {
+					String regex  = "^(?=.*[a-z])[a-zA-Z0-9+\\-*^/]*$";
+					
+					
+					Pattern pattern = Pattern.compile(regex);
+			        Matcher matcher = pattern.matcher(expresion);
+
+			        if (!nr1.isSelected() && !nr2.isSelected()) {
 						errores.setText("Debe seleccionar una opción.");
-		                return;
+						errorgeneral.setText("");
+						return;
 	                }
-					
-					if(nr1.isSelected()) {
-						nr1 f1 = new nr1();
-						f1.setFuncion(expresion);
-						f1.setPuntoInicial(valor);
-						f1.setError(margen);
-						r.llenarTablaF1(f1.newtonRaphson(),f1.getFuncion());
-					}
-					
-					if(nr2.isSelected()) {
-						nr2 f2 = new nr2();
-						f2.setFuncion(expresion);
-						f2.setPuntoInicial(valor);
-						f2.setError(margen);
-						r.llenarTablaF2(f2.newtonraphsonMejorado(), f2.getFuncion());
-					}
-					
-					if(funcion.getText().isEmpty()) {
-						errorgeneral.setText("Complete todos los campos para continuar.");
+			        
+			        if(funcion.getText().isEmpty()) {
+			        	errorgeneral.setText("Complete todos los campos para continuar.");
 						errores.setText("");
 						btnNewButton.setEnabled(false);
-					}else{
+					}
+			        
+			        if (matcher.matches()) {
+						if(nr1.isSelected()) {
+							nr1 f1 = new nr1();
+						    f1.setFuncion(expresion);
+				            f1.setPuntoInicial(valor);
+							f1.setError(margen);
+							r.llenarTablaF1(f1.newtonRaphson(),f1.getFuncion());
+						}
+						
+						if(nr2.isSelected()) {
+							nr2 f2 = new nr2();            
+							f2.setFuncion(expresion);	
+				            f2.setPuntoInicial(valor);
+							f2.setError(margen);
+							r.llenarTablaF2(f2.newtonraphsonMejorado(), f2.getFuncion());
+						}
+						
 						r.setVisible(true);
 						r.setTitle("Newton-Raphson");
-						r.setLocationRelativeTo(null);
 						r.setResizable(false);
-						
-						ImageIcon icono = new ImageIcon("logo.png");
+						r.setSize(500,340);
+						r.setLocation(840,190);
+						ImageIcon icono = new ImageIcon("Icono/logo.png");
 						r.setIconImage(icono.getImage());
 						dispose();
-					}
-										
 
+			        }else {
+			        	errorgeneral.setText("La funcion ingresada no es valida.");
+						errores.setText("");
+						btnNewButton.setEnabled(false);
+			        }
+			        
 				}catch(Exception a) {
 					errores.setText("El punto inicial debe ser entero y el margen de error decimal");
 					errorgeneral.setText("");
@@ -172,10 +185,9 @@ public class NewtonRaphson extends JFrame {
 				}else {
 					btnNewButton.setEnabled(true);
 				}
-
-				
 			}
 		});
+	
 		
 
 		btnNewButton.setFont(new Font("Times New Roman", Font.BOLD, 15));

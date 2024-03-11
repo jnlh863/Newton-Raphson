@@ -1,6 +1,5 @@
 package newtonraphson;
 
-import java.awt.EventQueue;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -10,6 +9,11 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Resultados extends JFrame {
 
@@ -17,37 +21,11 @@ public class Resultados extends JFrame {
 	private JPanel contentPane;
 	private JTable tableu;
 	private DefaultTableModel model;
+	private JLabel lblNewLabel;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Resultados frame = new Resultados();
-					frame.setTitle("Newton-Raphson");
-					frame.setVisible(true);
-					frame.setSize(800,460);
-					frame.setLocationRelativeTo(null);
-					frame.setResizable(false);
-					
-					ImageIcon icono = new ImageIcon("logo.png");
-					frame.setIconImage(icono.getImage());
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public Resultados() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 460);
+		setBounds(100, 100, 800, 340);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -55,7 +33,7 @@ public class Resultados extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(36, 64, 400, 287);
+		scrollPane.setBounds(43, 123, 400, 99);
 		contentPane.add(scrollPane);
 		
 		tableu = new JTable();
@@ -68,9 +46,33 @@ public class Resultados extends JFrame {
 		model.addColumn("Ea%");
 		tableu.setModel(model);
 		
-		
-		
 		scrollPane.setViewportView(tableu);
+		
+		lblNewLabel = new JLabel("Resultados");
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(43, 51, 400, 35);
+		contentPane.add(lblNewLabel);
+		
+		JButton btnNewButton = new JButton("Regresar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NewtonRaphson nr = new NewtonRaphson();
+				nr.setVisible(true);
+				nr.setSize(800,430);
+				nr.setLocationRelativeTo(null);
+				nr.setResizable(false);
+				nr.setTitle("Newton-Raphson");
+				ImageIcon icono = new ImageIcon("Icono/logo.png");
+				nr.setIconImage(icono.getImage());
+				dispose();
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnNewButton.setBounds(329, 240, 114, 23);
+		contentPane.add(btnNewButton);
+		
+
 	}
 	
 	public void llenarTablaF1(ArrayList<Double> j, String funcion) {
@@ -109,10 +111,7 @@ public class Resultados extends JFrame {
 		
         Grafica g = new Grafica();
 		g.graficar(raices, funcion);
-		
-		System.out.println(iteraciones);
-		System.out.println(raices);
-		System.out.println(errores);
+	
 	}
 	
 	
@@ -153,11 +152,6 @@ public class Resultados extends JFrame {
 		
 		Grafica g = new Grafica();
 		g.graficar(raices, funcion);
-		
-		System.out.println(iteraciones);
-		System.out.println(raices);
-		System.out.println(errores);
+
 	}
-
-
 }
