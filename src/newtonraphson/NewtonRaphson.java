@@ -123,10 +123,8 @@ public class NewtonRaphson extends JFrame {
 					double valor = Double.parseDouble(puntoInicial.getText());
 					double margen = Double.parseDouble(error.getText());
 					Resultados r = new Resultados();
-
-					String regex  = "^(?=.*[a-z])[a-zA-Z0-9+\\-*^/]*$";
-					
-					
+						
+					String regex = "^(?!\\d$)(?![-+*/^]$)[a-zA-Z0-9+*/^(). -]*$";
 					Pattern pattern = Pattern.compile(regex);
 			        Matcher matcher = pattern.matcher(expresion);
 

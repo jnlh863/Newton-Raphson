@@ -107,6 +107,7 @@ public class nr1{
 							break;
 						}
 					}
+
 					
 					xi.add(r);
 					eAprox = Math.abs((xi.get(i+1) - xi.get(i)) / (xi.get(i+1)))*100;
