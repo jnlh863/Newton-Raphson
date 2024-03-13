@@ -2,6 +2,7 @@ package newtonraphson;
 
 import org.lsmp.djep.djep.DJep;
 import java.lang.Math;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.JEP;
@@ -94,30 +95,30 @@ public class nr1{
 				
 				try {
 					if(xi.isEmpty()) {
-						ea.add(0.0);
 						xi.add(this.puntoInicial);
+						ea.add(0.0);
 						xi.add(r);	
 						eAprox = Math.abs((xi.get(i+1) - xi.get(i)) / (xi.get(i+1)))*100;
-						double truncado = Math.floor(eAprox* 10) / 10;
-						if(this.error != truncado) {
-							ea.add(truncado);
-							i++;
-							continue;
-						}else {
+						DecimalFormat df = new DecimalFormat("0.00");
+						String e = df.format(eAprox);
+						if(Double.parseDouble(e) <= this.error) {
 							break;
+						}else {	
+							ea.add(Double.parseDouble(e));
+							i++;
 						}
-					}
-
-					
-					xi.add(r);
-					eAprox = Math.abs((xi.get(i+1) - xi.get(i)) / (xi.get(i+1)))*100;
-					double truncado = Math.floor(eAprox* 10) / 10;
-					if(this.error != truncado) {
-						ea.add(truncado);
-						i++;
 					}else {
-						ea.add(truncado);
-						break;
+						xi.add(r);
+						eAprox = Math.abs((xi.get(i+1) - xi.get(i)) / (xi.get(i+1)))*100;
+						DecimalFormat df = new DecimalFormat("0.00");
+						String e = df.format(eAprox);
+						if(Double.parseDouble(e) <= this.error) {
+							ea.add(Double.parseDouble(e));
+							break;
+						}else {
+							ea.add(Double.parseDouble(e));
+							i++;
+						}
 					}
 
 				}catch(Exception e) {

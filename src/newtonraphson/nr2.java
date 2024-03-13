@@ -2,6 +2,7 @@ package newtonraphson;
 
 import org.lsmp.djep.djep.DJep;
 import java.lang.Math;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.JEP;
@@ -108,33 +109,35 @@ public class nr2 {
 				double r = this.jep.getValue();
 				double eAprox = 0.0;
 				
+				
 				try {
 					if(xi.isEmpty()) {
-						ea.add(0.0);
 						xi.add(this.puntoInicial);
-						xi.add(r);	
+						ea.add(0.00);
+						xi.add(r);
 						eAprox = Math.abs((xi.get(i+1) - xi.get(i)) / (xi.get(i+1)))*100;
-						double truncado = Math.floor(eAprox* 10) / 10;
-						if(this.error != truncado) {
-							ea.add(truncado);
-							i++;
-							continue;
-						}else {
+						DecimalFormat df = new DecimalFormat("0.00");
+						String e = df.format(eAprox);
+						if(Double.parseDouble(e) <= this.error) {
 							break;
+						}else {
+							ea.add(Double.parseDouble(e));
+							i++;
+						}
+					}else {
+						xi.add(r);
+						eAprox = Math.abs((xi.get(i+1) - xi.get(i)) / (xi.get(i+1)))*100;
+						DecimalFormat df = new DecimalFormat("0.00");
+						String e = df.format(eAprox);
+						if(Double.parseDouble(e) <= this.error) {
+							ea.add(Double.parseDouble(e));
+							break;
+						}else {
+							ea.add(Double.parseDouble(e));
+							i++;
 						}
 					}
-					
-					xi.add(r);
-					eAprox = Math.abs((xi.get(i+1) - xi.get(i)) / (xi.get(i+1)))*100;
-					double truncado = Math.floor(eAprox* 10) / 10;
-					if(this.error != truncado) {
-						ea.add(truncado);
-						i++;
-					}else {
-						ea.add(truncado);
-						break;
-					}
-
+		
 				}catch(Exception e) {
 					System.out.println("No se puede dividir entre cero.");
 					break;

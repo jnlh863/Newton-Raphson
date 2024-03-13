@@ -173,7 +173,7 @@ public class NewtonRaphson extends JFrame {
 			        }
 			        
 				}catch(Exception a) {
-					errores.setText("El punto inicial debe ser entero y el margen de error decimal");
+					errores.setText("Solo se permiten numeros enteros o decimales");
 					errorgeneral.setText("");
 				}
 	
